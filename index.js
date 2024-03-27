@@ -1,4 +1,4 @@
-// Import required packages
+ // Import required packages
 const inquirer = require("inquirer");
 const fs = require("fs");
 
@@ -22,7 +22,7 @@ const questions = [
   {
     type: "input",
     name: "usage",
-    message: "What is the usage information?",
+    message: "What is the project usage information?",
   },
   {
     type: "input",
@@ -34,13 +34,23 @@ const questions = [
     name: "tests",
     message: "Provide test instructions:",
   },
+  {
+    type: "list",
+    name: "license",
+    message: "Choose a license for your project:",
+    choices: ["MIT", "Apache 2.0", "GPL 3.0", "BSD 3", "None"],
+  },
 ];
 
 // Function to generate README content based on user responses
 function generateREADME(answers) {
+  const licenseBadge = answers.license !== "None"
+    ? `![License](https://img.shields.io/badge/license-${answers.license.replace(" ", "_")}-blue.svg)\n`
+    : "";
+
   return `
 # ${answers.title}
-
+${licenseBadge}
 ## Description
 ${answers.description}
 
@@ -49,6 +59,7 @@ ${answers.description}
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Tests](#tests)
+- [License](#license)
 
 ## Installation
 ${answers.installation}
@@ -61,6 +72,9 @@ ${answers.contribution}
 
 ## Tests
 ${answers.tests}
+
+## License
+This project is licensed under the ${answers.license} license.
 `;
 }
 
