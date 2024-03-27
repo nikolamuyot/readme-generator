@@ -1,4 +1,4 @@
- // Import required packages
+// Import required packages
 const inquirer = require("inquirer");
 const fs = require("fs");
 
@@ -40,17 +40,32 @@ const questions = [
     message: "Choose a license for your project:",
     choices: ["MIT", "Apache 2.0", "GPL 3.0", "BSD 3", "None"],
   },
+  {
+    type: "input",
+    name: "github",
+    message: "Enter your GitHub Username:",
+  },
+  {
+    type: "input",
+    name: "email",
+    message: "Enter your email address:",
+  },
 ];
 
 // Function to generate README content based on user responses
 function generateREADME(answers) {
-  const licenseBadge = answers.license !== "None"
-    ? `![License](https://img.shields.io/badge/license-${answers.license.replace(" ", "_")}-blue.svg)\n`
-    : "";
+  const licenseBadge =
+    answers.license !== "None"
+      ? `![License](https://img.shields.io/badge/license-${answers.license.replace(
+          " ",
+          "_"
+        )}-blue.svg)\n`
+      : "";
 
   return `
 # ${answers.title}
 ${licenseBadge}
+
 ## Description
 ${answers.description}
 
@@ -60,6 +75,7 @@ ${answers.description}
 - [Contributing](#contributing)
 - [Tests](#tests)
 - [License](#license)
+- [Questions](#questions)
 
 ## Installation
 ${answers.installation}
@@ -75,6 +91,11 @@ ${answers.tests}
 
 ## License
 This project is licensed under the ${answers.license} license.
+
+## Questions
+For any questions, please reach out via email at ${answers.email}.
+
+To view more projects, visit [${answers.github}](https://github.com/${answers.github}).
 `;
 }
 
