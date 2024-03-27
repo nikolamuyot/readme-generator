@@ -1,4 +1,4 @@
-// Import required packages
+ // Import required packages
 const inquirer = require("inquirer");
 const fs = require("fs");
 
@@ -44,18 +44,13 @@ const questions = [
 
 // Function to generate README content based on user responses
 function generateREADME(answers) {
-  const licenseBadge =
-    answers.license !== "None"
-      ? `![License](https://img.shields.io/badge/license-${answers.license.replace(
-          " ",
-          "_"
-        )}-blue.svg)`
-      : "";
+  const licenseBadge = answers.license !== "None"
+    ? `![License](https://img.shields.io/badge/license-${answers.license.replace(" ", "_")}-blue.svg)\n`
+    : "";
 
   return `
 # ${answers.title}
 ${licenseBadge}
-
 ## Description
 ${answers.description}
 
